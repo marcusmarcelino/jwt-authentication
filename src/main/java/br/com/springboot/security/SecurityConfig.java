@@ -23,7 +23,8 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.POST, "/login").permitAll()
             .anyRequest().authenticated());
 
-    http.addFilterBefore(new MyFilter(), UsernamePasswordAuthenticationFilter.class);
+    // http.addFilterBefore(new MyFilter(),
+    // UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
   }

@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.springboot.modules.user.dto.CreateUserRoleDTO;
@@ -24,6 +26,10 @@ public class CreateUserService {
   @Autowired
   private RoleRepository roleRepository;
 
+  private BCryptPasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
+
   public CreateUserRoleDTO execute(User user, UserType type) {
     Optional<User> existsUser = repository.findByUsername(user.getUsername());
 
@@ -36,10 +42,13 @@ public class CreateUserService {
       throw new Error("Erro na atribuição de regras ao usuário");
     });
 
+    user.setPassword(passwordEncoder().encode(user.getPassword()));
+
     User createdUser = repository.save(user);
 
     return new CreateUserRoleDTO()
         .withUsername(createdUser.getUsername())
-        .withIdUser(createdUser.getId());
+        .withIdUser(createdUser.getId())
+        .withIdRoles(createdUser.getRoles().stream().map(Role::getId).collect(Collectors.toList()));
   }
 }
