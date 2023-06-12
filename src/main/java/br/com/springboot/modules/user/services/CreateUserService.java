@@ -28,7 +28,7 @@ public class CreateUserService {
     Optional<User> existsUser = repository.findByUsername(user.getUsername());
 
     if (existsUser.isPresent())
-      throw new Error("User already exists!");
+      throw new Error("O usuário já existe!");
 
     Optional<Role> roleFound = roleRepository.findByName(type.name());
 

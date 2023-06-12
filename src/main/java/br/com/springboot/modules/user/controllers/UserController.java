@@ -18,7 +18,7 @@ import br.com.springboot.modules.user.dto.CreateUserRoleDTO;
 import br.com.springboot.modules.user.models.Role;
 import br.com.springboot.modules.user.models.User;
 import br.com.springboot.modules.user.services.CreateRoleService;
-import br.com.springboot.modules.user.services.CreateRoleUserService;
+import br.com.springboot.modules.user.services.AssignRuleToUser;
 import br.com.springboot.modules.user.services.UserServiceImpl;
 
 @RestController
@@ -29,7 +29,7 @@ public class UserController {
   private UserServiceImpl service;
 
   @Autowired
-  private CreateRoleUserService createRoleUserService;
+  private AssignRuleToUser createRoleUserService;
 
   @Autowired
   private CreateRoleService createRoleService;

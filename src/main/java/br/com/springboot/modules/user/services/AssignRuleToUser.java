@@ -14,7 +14,7 @@ import br.com.springboot.modules.user.models.User;
 import br.com.springboot.modules.user.repository.UserRepository;
 
 @Service
-public class CreateRoleUserService {
+public class AssignRuleToUser {
   @Autowired
   private UserRepository repository;
 
@@ -22,9 +22,8 @@ public class CreateRoleUserService {
     Optional<User> userExists = repository.findById(createUserRoleDTO.getIdUser());
     List<Role> roles = new ArrayList<>();
 
-    if (userExists.isEmpty()) {
+    if (userExists.isEmpty())
       throw new Error("User does not exists!");
-    }
 
     roles = createUserRoleDTO.getIdRoles().stream().map(role -> new Role(role)).collect(Collectors.toList());
 

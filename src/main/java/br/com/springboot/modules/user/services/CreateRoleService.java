@@ -19,7 +19,7 @@ public class CreateRoleService {
     Optional<Role> roleExists = repository.findByName(role.getName());
 
     if (roleExists.isPresent())
-      throw new Error("Role already exists!");
+      throw new Error("Regra já existente!");
 
     return repository.save(role);
   }
