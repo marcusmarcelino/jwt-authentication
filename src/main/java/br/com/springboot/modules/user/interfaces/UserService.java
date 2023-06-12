@@ -1,0 +1,20 @@
+package br.com.springboot.modules.user.interfaces;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import br.com.springboot.modules.user.models.User;
+
+public interface UserService {
+  User save(User user);
+
+  List<User> getAll();
+
+  Optional<User> getById(UUID id);
+
+  default List<User> findUnderageUsers(Integer maxAge) {
+    return new ArrayList<>();
+  }
+}
