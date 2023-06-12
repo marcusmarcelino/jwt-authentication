@@ -44,7 +44,6 @@ public class TokenUtil {
       String jwtToken = request.getHeader("Authorization");
       jwtToken = jwtToken.replace(PREFIX, "");
 
-      // realizando a decodificação do token
       Jws<Claims> jwsClaims = Jwts.parserBuilder().setSigningKey(SECRET_KEY.getBytes()).build()
           .parseClaimsJws(jwtToken);
 
@@ -52,15 +51,7 @@ public class TokenUtil {
       String issuer = jwsClaims.getBody().getIssuer();
       Date validate = jwsClaims.getBody().getExpiration();
 
-      // a requisição é recebida e dentro do cabeçalho da requisição é verificado a
-      // informação guardada em Authorization
       if (user.length() > 0) {
-        // após a validação de que aquele token enviado no cabeçalho é válido,
-        // verificação que pre cisa ser implementada buscando na base de dados os dados
-        // do usuário logado
-
-        // em seguida a requisição prossegue com informações que podem ser adicionadas
-        // como o usuário, crêdenciais e autorizações atribuídas
         return new UsernamePasswordAuthenticationToken("user", null, Collections.emptyList());
       }
     } catch (Exception e) {
