@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.springboot.modules.user.dto.CreateUserRoleDTO;
+import br.com.springboot.modules.user.dto.AssignRoleToUserDTO;
 import br.com.springboot.modules.user.models.Role;
 import br.com.springboot.modules.user.models.User;
 import br.com.springboot.modules.user.services.CreateRoleService;
@@ -54,7 +54,7 @@ public class UserController {
   }
 
   @PostMapping("/role")
-  public CreateUserRoleDTO addedRole(@RequestBody CreateUserRoleDTO createUserRoleDTO) {
+  public AssignRoleToUserDTO addedRole(@RequestBody AssignRoleToUserDTO createUserRoleDTO) {
     return assignRuleToUserService.execute(createUserRoleDTO);
   }
 

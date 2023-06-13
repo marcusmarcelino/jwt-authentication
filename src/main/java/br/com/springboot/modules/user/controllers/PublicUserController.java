@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.springboot.modules.user.dto.CreateUserRoleDTO;
+import br.com.springboot.modules.user.dto.AssignRoleToUserDTO;
 import br.com.springboot.modules.user.enums.UserType;
 import br.com.springboot.modules.user.models.JWTToken;
 import br.com.springboot.modules.user.models.Credentials;
@@ -22,12 +22,12 @@ public class PublicUserController {
   private CreateUserService createUserService;
 
   @PostMapping("/register/customer")
-  public ResponseEntity<CreateUserRoleDTO> registerCustomer(@RequestBody User user) {
+  public ResponseEntity<AssignRoleToUserDTO> registerCustomer(@RequestBody User user) {
     return ResponseEntity.ok().body(createUserService.execute(user, UserType.CUSTOMER));
   }
 
   @PostMapping("/register/company")
-  public ResponseEntity<CreateUserRoleDTO> registerCompany(@RequestBody User user) {
+  public ResponseEntity<AssignRoleToUserDTO> registerCompany(@RequestBody User user) {
     return ResponseEntity.ok().body(createUserService.execute(user, UserType.COMPANY));
   }
 

@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.springboot.modules.user.dto.CreateUserRoleDTO;
+import br.com.springboot.modules.user.dto.AssignRoleToUserDTO;
 import br.com.springboot.modules.user.enums.UserType;
 import br.com.springboot.modules.user.models.Role;
 import br.com.springboot.modules.user.models.User;
@@ -30,7 +30,7 @@ public class CreateUserService {
     return new BCryptPasswordEncoder();
   }
 
-  public CreateUserRoleDTO execute(User user, UserType type) {
+  public AssignRoleToUserDTO execute(User user, UserType type) {
     Optional<User> existsUser = repository.findByUsername(user.getUsername());
 
     if (existsUser.isPresent())
@@ -46,7 +46,7 @@ public class CreateUserService {
 
     User createdUser = repository.save(user);
 
-    return new CreateUserRoleDTO()
+    return new AssignRoleToUserDTO()
         .withUsername(createdUser.getUsername())
         .withIdUser(createdUser.getId())
         .withIdRoles(createdUser.getRoles().stream().map(Role::getId).collect(Collectors.toList()));

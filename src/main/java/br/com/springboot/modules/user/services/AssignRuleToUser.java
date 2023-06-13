@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.springboot.modules.user.dto.CreateUserRoleDTO;
+import br.com.springboot.modules.user.dto.AssignRoleToUserDTO;
 import br.com.springboot.modules.user.models.Role;
 import br.com.springboot.modules.user.models.User;
 import br.com.springboot.modules.user.repository.UserRepository;
@@ -18,12 +18,12 @@ public class AssignRuleToUser {
   @Autowired
   private UserRepository repository;
 
-  public CreateUserRoleDTO execute(CreateUserRoleDTO createUserRoleDTO) {
+  public AssignRoleToUserDTO execute(AssignRoleToUserDTO createUserRoleDTO) {
     Optional<User> userExists = repository.findById(createUserRoleDTO.getIdUser());
     List<Role> roles = new ArrayList<>();
 
     if (userExists.isEmpty())
-      throw new Error("User does not exists!");
+      throw new Error("O usuário não existe!");
 
     roles = createUserRoleDTO.getIdRoles().stream().map(role -> new Role(role)).collect(Collectors.toList());
 
@@ -33,7 +33,7 @@ public class AssignRuleToUser {
 
     repository.save(user);
 
-    return new CreateUserRoleDTO()
+    return new AssignRoleToUserDTO()
         .withIdUser(user.getId())
         .withIdRoles(user.getRoles().stream().map(Role::getId).collect(Collectors.toList()));
   }
