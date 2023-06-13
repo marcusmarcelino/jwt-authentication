@@ -5,15 +5,15 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.springboot.modules.user.dto.AssignRoleToUserDTO;
-import br.com.springboot.modules.user.enums.UserType;
+import br.com.springboot.modules.user.enums.RoleTypes;
 import br.com.springboot.modules.user.models.Role;
 import br.com.springboot.modules.user.models.User;
 import br.com.springboot.modules.user.repository.RoleRepository;
 import br.com.springboot.modules.user.repository.UserRepository;
+import br.com.springboot.modules.user.utils.UserUtils;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -25,23 +25,19 @@ public class CreateUserService {
   @Autowired
   private RoleRepository roleRepository;
 
-  private BCryptPasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
-
-  public AssignRoleToUserDTO execute(User user, UserType type) {
+  public AssignRoleToUserDTO execute(User user, RoleTypes type) {
     Optional<User> existsUser = repository.findByUsername(user.getUsername());
 
     if (existsUser.isPresent())
       throw new Error("O usuário já existe!");
 
-    Optional<Role> roleFound = roleRepository.findByName(type.name());
+    Optional<Role> roleFound = roleRepository.findByRoleName(type);
 
     roleFound.ifPresentOrElse((role) -> user.setRoles(Arrays.asList(role)), () -> {
       throw new Error("Erro na atribuição de regras ao usuário");
     });
 
-    user.setPassword(passwordEncoder().encode(user.getPassword()));
+    user.setPassword(UserUtils.passwordEncoder().encode(user.getPassword()));
 
     User createdUser = repository.save(user);
 

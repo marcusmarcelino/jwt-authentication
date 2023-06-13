@@ -1,7 +1,6 @@
 package br.com.springboot.modules.user.services;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,11 @@ public class BasicUserService implements UserService {
   }
 
   @Override
-  public Optional<User> getById(UUID id) {
-    return repository.findById(id);
+  public User getById(UUID id) {
+    User user = repository.findById(id).orElseThrow(() -> {
+      throw new Error("Usuário não encontrado!");
+    });
+    return user;
   }
 
   @Override

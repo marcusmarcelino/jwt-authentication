@@ -2,7 +2,6 @@ package br.com.springboot.modules.user.interfaces;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import br.com.springboot.modules.user.models.User;
@@ -10,7 +9,7 @@ import br.com.springboot.modules.user.models.User;
 public interface UserService {
   List<User> getAll();
 
-  Optional<User> getById(UUID id);
+  User getById(UUID id);
 
   default List<User> findUnderageUsers(Integer maxAge) {
     return new ArrayList<>();

@@ -10,4 +10,14 @@ public class SpringbootApplication {
 		SpringApplication.run(SpringbootApplication.class, args);
 	}
 
+	// @Bean
+	// CommandLineRunner run(
+	// CreateRoleService roleService,
+	// CreateAdminUser createAdminUser) {
+	// return args -> {
+	// roleService.execute(new Role(null, RoleTypes.ROLE_ADMIN));
+	// createAdminUser.execute(new User(null, "Marcus", "marcusmarcelino", 25,
+	// "password", null));
+	// };
+	// }
 }

@@ -1,12 +1,8 @@
 package br.com.springboot.security;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.springboot.modules.user.models.User;
@@ -19,12 +15,7 @@ public class UserPrincipal implements UserDetails {
   public UserPrincipal(User user) {
     this.username = user.getUsername();
     this.password = user.getPassword();
-    List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-
-    authorities = user.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
-        .collect(Collectors.toList());
-
-    this.authorities = authorities;
+    this.authorities = user.getRoles();
   }
 
   public static UserPrincipal create(User user) {

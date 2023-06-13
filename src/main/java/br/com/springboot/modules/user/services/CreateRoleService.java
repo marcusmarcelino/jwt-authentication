@@ -16,7 +16,7 @@ public class CreateRoleService {
   private RoleRepository repository;
 
   public Role execute(Role role) {
-    Optional<Role> roleExists = repository.findByName(role.getName());
+    Optional<Role> roleExists = repository.findByRoleName(role.getRoleName());
 
     if (roleExists.isPresent())
       throw new Error("Regra já existente!");

@@ -17,4 +17,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
   public List<User> findByAgeLessThan(Integer maxAge);
 
   public Optional<User> findByUsername(String username);
+
+  @Query("SELECT u FROM User u JOIN FETCH u.roles where u.username = :username")
+  public User findByUsernameFetchRoles(@Param("username") String username);
 }

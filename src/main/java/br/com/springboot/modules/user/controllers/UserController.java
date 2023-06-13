@@ -2,10 +2,10 @@ package br.com.springboot.modules.user.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,14 +37,13 @@ public class UserController {
   List<User> users = new ArrayList<>();
 
   @GetMapping("")
-  public List<User> get() {
-    return basicUserService.getAll();
+  public ResponseEntity<List<User>> get() {
+    return ResponseEntity.ok().body(basicUserService.getAll());
   }
 
   @GetMapping("/{id}")
-  public User getById(@PathVariable UUID id) {
-    Optional<User> user = basicUserService.getById(id);
-    return user.orElse(null);
+  public ResponseEntity<User> getById(@PathVariable UUID id) {
+    return ResponseEntity.ok().body(basicUserService.getById(id));
   }
 
   @GetMapping("/isNotOfAge")
