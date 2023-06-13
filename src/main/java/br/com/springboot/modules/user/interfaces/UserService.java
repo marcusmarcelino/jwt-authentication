@@ -8,8 +8,6 @@ import java.util.UUID;
 import br.com.springboot.modules.user.models.User;
 
 public interface UserService {
-  User save(User user);
-
   List<User> getAll();
 
   Optional<User> getById(UUID id);

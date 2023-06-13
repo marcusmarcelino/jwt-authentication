@@ -19,17 +19,17 @@ import br.com.springboot.modules.user.models.Role;
 import br.com.springboot.modules.user.models.User;
 import br.com.springboot.modules.user.services.CreateRoleService;
 import br.com.springboot.modules.user.services.AssignRuleToUser;
-import br.com.springboot.modules.user.services.UserServiceImpl;
+import br.com.springboot.modules.user.services.BasicUserService;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
   @Autowired
-  private UserServiceImpl service;
+  private BasicUserService basicUserService;
 
   @Autowired
-  private AssignRuleToUser createRoleUserService;
+  private AssignRuleToUser assignRuleToUserService;
 
   @Autowired
   private CreateRoleService createRoleService;
@@ -38,24 +38,24 @@ public class UserController {
 
   @GetMapping("")
   public List<User> get() {
-    return service.getAll();
+    return basicUserService.getAll();
   }
 
   @GetMapping("/{id}")
   public User getById(@PathVariable UUID id) {
-    Optional<User> user = service.getById(id);
+    Optional<User> user = basicUserService.getById(id);
     return user.orElse(null);
   }
 
   @GetMapping("/isNotOfAge")
   public List<User> findUnderageUsers(@RequestParam Integer maxAge) {
-    List<User> users = service.findUnderageUsers(maxAge);
+    List<User> users = basicUserService.findUnderageUsers(maxAge);
     return users;
   }
 
   @PostMapping("/role")
   public CreateUserRoleDTO addedRole(@RequestBody CreateUserRoleDTO createUserRoleDTO) {
-    return createRoleUserService.execute(createUserRoleDTO);
+    return assignRuleToUserService.execute(createUserRoleDTO);
   }
 
   @PostMapping("/create/role")
