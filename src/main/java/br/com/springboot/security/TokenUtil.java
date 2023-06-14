@@ -48,8 +48,6 @@ public class TokenUtil {
           .parseClaimsJws(jwtToken);
 
       String user = jwsClaims.getBody().getSubject();
-      String issuer = jwsClaims.getBody().getIssuer();
-      Date validate = jwsClaims.getBody().getExpiration();
 
       if (user.length() > 0) {
         return new UsernamePasswordAuthenticationToken("user", null, Collections.emptyList());
