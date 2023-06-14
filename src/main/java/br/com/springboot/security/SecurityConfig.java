@@ -4,8 +4,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -13,32 +16,25 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig {
 
-  // Essa configuração deve ser utilizada sem userdetailService estar implementado
-  // do contrário, ocorrerá erro na execução do teste, já que por sua vez
-  // ele utilizará as configurações do bean do userDetailService
-  // o qual possui maior prioridade. Ou seja, deve-se escolher qual o tipo de
-  // configuração
-  // irá utilizar
-  // @Bean
-  // public InMemoryUserDetailsManager userDetailsService(PasswordEncoder
-  // passwordEncoder) {
-  // UserDetails user = User.withUsername("user")
-  // .password(passwordEncoder.encode("password"))
-  // .roles("CUSTOMER")
-  // .build();
+  @Bean
+  public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
+    UserDetails user = User.withUsername("user")
+        .password(passwordEncoder.encode("password"))
+        .roles("CUSTOMER")
+        .build();
 
-  // UserDetails company = User.withUsername("company")
-  // .password(passwordEncoder.encode("password"))
-  // .roles("COMPANY")
-  // .build();
+    UserDetails company = User.withUsername("company")
+        .password(passwordEncoder.encode("password"))
+        .roles("COMPANY")
+        .build();
 
-  // UserDetails admin = User.withUsername("admin")
-  // .password(passwordEncoder.encode("password"))
-  // .roles("USER", "COMPANY", "ADMIN")
-  // .build();
+    UserDetails admin = User.withUsername("admin")
+        .password(passwordEncoder.encode("password"))
+        .roles("USER", "COMPANY", "ADMIN")
+        .build();
 
-  // return new InMemoryUserDetailsManager(user, company, admin);
-  // }
+    return new InMemoryUserDetailsManager(user, company, admin);
+  }
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
