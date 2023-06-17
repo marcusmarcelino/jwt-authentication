@@ -1,4 +1,4 @@
-package br.com.springboot.auth;
+package br.com.springboot.modules.auth;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.springboot.auth.models.AuthenticationRequest;
-import br.com.springboot.auth.models.AuthenticationResponse;
-import br.com.springboot.auth.models.RegisterRequest;
-import br.com.springboot.auth.service.AuthenticationService;
+import br.com.springboot.modules.auth.models.AuthenticationRequest;
+import br.com.springboot.modules.auth.models.AuthenticationResponse;
+import br.com.springboot.modules.auth.models.RegisterRequest;
+import br.com.springboot.modules.auth.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 
 @RestController

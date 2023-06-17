@@ -1,13 +1,13 @@
-package br.com.springboot.auth.service;
+package br.com.springboot.modules.auth.service;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.springboot.auth.models.AuthenticationRequest;
-import br.com.springboot.auth.models.AuthenticationResponse;
-import br.com.springboot.auth.models.RegisterRequest;
+import br.com.springboot.modules.auth.models.AuthenticationRequest;
+import br.com.springboot.modules.auth.models.AuthenticationResponse;
+import br.com.springboot.modules.auth.models.RegisterRequest;
 import br.com.springboot.modules.user.enums.Role;
 import br.com.springboot.modules.user.models.User;
 import br.com.springboot.modules.user.repository.UserRepository;
